@@ -1,10 +1,12 @@
 require 'open-uri'
 require 'csv'
 
-$nb_data = 1000
-$data_path = '/home/tengmo/Naist/csv/edges.csv'
-#$nb_data = 109447
-#$data_path = '/home/tengmo/Naist/output/edges1.csv'
+#$nb_data = 1000
+#$data_path_edges = '/home/tengmo/Naist/csv/edges.csv'
+#$data_path_node = '/home/tengmo/Naist/csv/node.csv'
+$nb_data = 109447
+$data_path_edges = '/home/tengmo/Naist/output/edges1.csv'
+$data_path_edges = '/home/tengmo/Naist/output/node1.csv'
 
 
 def Create_array_source()
@@ -19,7 +21,7 @@ end
 def Find_freq(freq)
   array = Array.new
   cnt = 0
-  CSV.foreach($data_path) do |row|
+  CSV.foreach($data_path_edges) do |row|
     cnt +=1
     next if cnt == 1
     freq[Integer(row[1])] += 1
@@ -45,18 +47,36 @@ def Create_filter_edges(new_array)
       csv << ["Source", 'Target']
     #   csv << [,]
         cnt =0
-        CSV.foreach($data_path) do |row|
-        cnt +=1
-        next if cnt == 1
-
-        new_array.each do |element|
-            if element.to_s == row[0].to_s
-              csv << [row[0],row[1]]
-            end
-        end
+        CSV.foreach($data_path_edges) do |row|
+          cnt +=1
+          next if cnt == 1
+          new_array.each do |element|
+              if element.to_s == row[0].to_s
+                csv << [row[0],row[1]]
+              end
+          end
         end
   end
 end
+
+def Create_filter_node(new_array)
+  CSV.open("/home/tengmo/Naist/output/node-filter.csv", 'wb') do |csv|
+      csv << ["id", 'label']
+    #   csv << [,]
+        cnt =0
+        CSV.foreach($data_path_node) do |row|
+          cnt +=1
+          next if cnt == 1
+          new_array.each do |element|
+              if element.to_s == row[0].to_s
+                csv << [row[0],row[1]]
+              end
+          end
+        end
+  end
+end
+
+############################-mian-#########################################
 
 freq = Create_array_source()
 
@@ -65,3 +85,5 @@ freq = Find_freq(freq)
 new_array = Create_new_array(freq)
 #puts new_array
 Create_filter_edges(new_array)
+Create_filter_node(new_array)
+###########################################################################
