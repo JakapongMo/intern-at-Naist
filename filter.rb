@@ -6,7 +6,7 @@ require 'csv'
 #$data_path_node = '/home/tengmo/Naist/csv/node.csv'
 $nb_data = 109447
 $data_path_edges = '/home/tengmo/Naist/output/edges1.csv'
-$data_path_edges = '/home/tengmo/Naist/output/node1.csv'
+$data_path_node = '/home/tengmo/Naist/output/node1.csv'
 
 
 def Create_array_source()
@@ -85,5 +85,5 @@ freq = Find_freq(freq)
 new_array = Create_new_array(freq)
 #puts new_array
 Create_filter_edges(new_array)
-Create_filter_node(new_array)
+#Create_filter_node(new_array)
 ###########################################################################
