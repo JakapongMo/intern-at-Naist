@@ -2,6 +2,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'csv'
+$data_directory_path = '/home/tengmo/Downloads/RubyGems/'
 def Find_depent(dependencies)
   array = Array.new
   input = 0
@@ -31,9 +32,9 @@ end
 
 def Find_hash_file()
   my_hash = Hash.new("No information!")
-  Dir.foreach('/home/tengmo/Naist/readfile') do |item|
+  Dir.foreach($data_directory_path) do |item|
       next if item == '.' or item == '..'
-      doc = Nokogiri::HTML(open(item))
+      doc = Nokogiri::HTML(open("#{$data_directory_path}#{item}"))
       dependencies = doc.xpath("//strong")
       title = doc.xpath("//head//title")
       test = Find_depent(dependencies)
@@ -59,9 +60,9 @@ def Create_id()
   array = Array.new
   array[0] = "nothing here"
   cnt = 1
-  Dir.foreach('/home/tengmo/Naist/readfile') do |item|
+  Dir.foreach($data_directory_path) do |item|
     next if item == '.' or item == '..'
-    doc = Nokogiri::HTML(open(item))
+    doc = Nokogiri::HTML(open("#{$data_directory_path}#{item}"))
     title = doc.xpath("//head//title")
     name_gem = Find_title(title)
     array[cnt] = name_gem
@@ -71,7 +72,7 @@ def Create_id()
 end
 
 def Create_node_csv(array_id)
-  CSV.open("node.csv", 'wb') do |csv|
+  CSV.open("/home/tengmo/Naist/output/node.csv", 'wb') do |csv|
     csv << ["id", 'label']
     for x in 1..array_id.length-1
       csv << [x, array_id[x].to_s]
@@ -81,7 +82,7 @@ def Create_node_csv(array_id)
 end
 
 def Create_edges_csv(dependencies_hash, array_id)
-  CSV.open("edges.csv", 'wb') do |csv|
+  CSV.open("/home/tengmo/Naist/output/edges.csv", 'wb') do |csv|
       csv << ["Source", 'Target']
       dependencies_hash.each do |key , value|
           for  x in 0..value.length-1
@@ -143,8 +144,8 @@ end
 
 array_id = Create_id()
 dependencies_hash = Find_hash_file()
-Print_information()
-Print_gem_dependencies_with_number(dependencies_hash, array_id)
+#Print_information()
+#Print_gem_dependencies_with_number(dependencies_hash, array_id)
 Create_edges_csv(dependencies_hash, array_id)
 Create_node_csv(array_id)
 
