@@ -7,7 +7,6 @@ $data_path = '/home/tengmo/Naist/csv/edges.csv'
 #$data_path = '/home/tengmo/Naist/output/edges1.csv'
 
 
-
 def Create_array_source()
   array = Array.new
 
@@ -41,11 +40,28 @@ def Create_new_array(freq)
   return new_array
 end
 
+def Create_filter_edges(new_array)
+  CSV.open("/home/tengmo/Naist/output/edges-filter.csv", 'wb') do |csv|
+      csv << ["Source", 'Target']
+    #   csv << [,]
+        cnt =0
+        CSV.foreach($data_path) do |row|
+        cnt +=1
+        next if cnt == 1
+
+        new_array.each do |element|
+            if element.to_s == row[0].to_s
+              csv << [row[0],row[1]]
+            end
+        end
+        end
+  end
+end
+
 freq = Create_array_source()
 
 freq = Find_freq(freq)
 #puts freq
-
 new_array = Create_new_array(freq)
-
-puts new_array
+#puts new_array
+Create_filter_edges(new_array)
