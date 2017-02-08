@@ -43,7 +43,9 @@ def Create_new_array(freq)
 end
 
 def Create_filter_edges(new_array)
-  CSV.open("/home/tengmo/Naist/output/edges-filter.csv", 'wb') do |csv|
+  count = 0
+  node_array = Array.new
+  CSV.open("/home/tengmo/Naist/output/edges-filter1.csv", 'wb') do |csv|
       csv << ["Source", 'Target']
     #   csv << [,]
         cnt =0
@@ -52,22 +54,25 @@ def Create_filter_edges(new_array)
           next if cnt == 1
           new_array.each do |element|
               if element.to_s == row[0].to_s
+                node_array[count] = element
                 csv << [row[0],row[1]]
+                count +=1
               end
           end
         end
   end
+  return node_array.uniq
 end
 
-def Create_filter_node(new_array)
-  CSV.open("/home/tengmo/Naist/output/node-filter.csv", 'wb') do |csv|
+def Create_filter_node(node_array)
+  CSV.open("/home/tengmo/Naist/output/node-filter1.csv", 'wb') do |csv|
       csv << ["id", 'label']
     #   csv << [,]
         cnt =0
         CSV.foreach($data_path_node) do |row|
           cnt +=1
           next if cnt == 1
-          new_array.each do |element|
+          node_array.each do |element|
               if element.to_s == row[0].to_s
                 csv << [row[0],row[1]]
               end
@@ -76,6 +81,7 @@ def Create_filter_node(new_array)
   end
 end
 
+
 ############################-mian-#########################################
 
 freq = Create_array_source()
@@ -83,7 +89,9 @@ freq = Create_array_source()
 freq = Find_freq(freq)
 #puts freq
 new_array = Create_new_array(freq)
+
 #puts new_array
-Create_filter_edges(new_array)
-#Create_filter_node(new_array)
+node_array = Create_filter_edges(new_array)
+
+Create_filter_node(node_array)
 ###########################################################################
