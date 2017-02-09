@@ -1,12 +1,12 @@
 require 'open-uri'
 require 'csv'
 
-#$nb_data = 1000
-#$data_path_edges = '/home/tengmo/Naist/csv/edges.csv'
-#$data_path_node = '/home/tengmo/Naist/csv/node.csv'
-$nb_data = 109447
-$data_path_edges = '/home/tengmo/Naist/output/edges1.csv'
-$data_path_node = '/home/tengmo/Naist/output/node1.csv'
+$nb_data = 1000
+$data_path_edges = '/home/tengmo/Naist/csv/edges.csv'
+$data_path_node = '/home/tengmo/Naist/csv/node.csv'
+#$nb_data = 109447
+#$data_path_edges = '/home/tengmo/Naist/output/edges1.csv'
+#$data_path_node = '/home/tengmo/Naist/output/node1.csv'
 
 
 def Create_array_source()
@@ -45,7 +45,7 @@ end
 def Create_filter_edges(new_array)
   count = 0
   node_array = Array.new
-  CSV.open("/home/tengmo/Naist/output/edges-filter1.csv", 'wb') do |csv|
+  CSV.open("/home/tengmo/Naist/output/edges-filter.csv", 'wb') do |csv|
       csv << ["Source", 'Target']
     #   csv << [,]
         cnt =0
@@ -65,7 +65,7 @@ def Create_filter_edges(new_array)
 end
 
 def Create_filter_node(node_array)
-  CSV.open("/home/tengmo/Naist/output/node-filter1.csv", 'wb') do |csv|
+  CSV.open("/home/tengmo/Naist/output/node-filter.csv", 'wb') do |csv|
       csv << ["id", 'label']
     #   csv << [,]
         cnt =0

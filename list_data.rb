@@ -5,6 +5,11 @@ $data_path_node = '/home/tengmo/Naist/csv/node.csv'
 $data_path_edges = '/home/tengmo/Naist/csv/edges.csv'
 $data_path_node_with_download = '/home/tengmo/Naist/output/testdata/node_with_download.csv'
 
+#$data_path_node = '/home/tengmo/Naist/output/alldata/node1.csv'
+#$data_path_edges = '/home/tengmo/Naist/output/alldata/edges1.csv'
+#$data_path_node_with_download = '/home/tengmo/Naist/output/alldata/node_with_download1.csv'
+
+
 
 hash_outgoing = Hash.new(0)
 hash_ingoing = Hash.new(0)
@@ -35,6 +40,8 @@ CSV.foreach($data_path_edges) do |row|
   end
 
 end
+
+
 #hash_ingoing[1]
 
 #puts 'outgoing'

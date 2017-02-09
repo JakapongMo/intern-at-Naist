@@ -3,7 +3,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'csv'
 
-$data_directory_path = '/home/tengmo/Downloads/RubyGems/'
+$data_directory_path = '/home/tengmo/Naist/readfile/'
 
 def is_number? string
   true if Float(string) rescue false

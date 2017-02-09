@@ -2,7 +2,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'csv'
-$data_directory_path = '/home/tengmo/Downloads/RubyGems/'
+$data_directory_path = '/home/tengmo/Naist/readfile/'
 def Find_depent(dependencies)
   array = Array.new
   input = 0
@@ -145,7 +145,7 @@ end
 array_id = Create_id()
 dependencies_hash = Find_hash_file()
 #Print_information()
-#Print_gem_dependencies_with_number(dependencies_hash, array_id)
+Print_gem_dependencies_with_number(dependencies_hash, array_id)
 Create_edges_csv(dependencies_hash, array_id)
 Create_node_csv(array_id)
 
